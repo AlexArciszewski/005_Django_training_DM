@@ -1,7 +1,5 @@
-<!-- added line here -->
 
 {% load static %}
-<!DOCTYPE html>
 <html>
 <head>
     <!-- Required meta tags -->
@@ -36,7 +34,12 @@
                     <div class="navbar-nav">
                         {% if user.is_authenticated %}
                             <a class="nav-item nav-link" href="{% url 'profile'%}"> Profile</a>
-                            <a class="nav-item nav-link" href="{% url 'logout'%}"> Logout</a>
+                            <form action="{% url 'logout' %}" method="post">
+                                {% csrf_token %}
+                                <button value="SUBMIT" type="submit">
+                                    Logout
+                                </button>
+                            </form>
                         {% else %}
                             <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
                             <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
@@ -52,7 +55,7 @@
             <div class="col-md-8">
                 {% if messages %}
                     {% for message in messages %}
-                        <div clas = "alert alert-{{message.tags }}">
+                        <div class = "alert alert-{{message.tags }}">
                             {{ message }}
                         </div>
                     {% endfor %}
